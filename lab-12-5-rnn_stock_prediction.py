@@ -42,15 +42,15 @@ def MinMaxScaler(data):
 
 
 # train Parameters
-seq_length = 5   # 5day
-data_dim = 4     # input
-hidden_dim = 10  #
+seq_length = 7
+data_dim = 5
+hidden_dim = 10
 output_dim = 1
 learning_rate = 0.01
 iterations = 500
 
 # Open, High, Low, Volume, Close
-xy = np.loadtxt('KOSPI01.csv', delimiter=',')
+xy = np.loadtxt('data-02-stock_daily.csv', delimiter=',')
 xy = xy[::-1]  # reverse order (chronically ordered)
 xy = MinMaxScaler(xy)
 x = xy
@@ -111,15 +111,19 @@ with tf.Session() as sess:
     test_predict = sess.run(Y_pred, feed_dict={X: testX})
     rmse_val = sess.run(rmse, feed_dict={
                     targets: testY, predictions: test_predict})
+    print("================================")
     print("RMSE: {}".format(rmse_val))
+    print("================================")
 
-print(testY, test_predict)
-#print(test_predict)
-...
+
+    print(testY, test_predict)
+
+'''
+  
     # Plot predictions
-#    plt.plot(testY)
-#    plt.plot(test_predict)
-#    plt.xlabel("Time Period")
-#    plt.ylabel("Stock Price")
-#    plt.show()
-...
+    plt.plot(testY)
+    plt.plot(test_predict)
+    plt.xlabel("Time Period")
+    plt.ylabel("Stock Price")
+    plt.show()
+'''
